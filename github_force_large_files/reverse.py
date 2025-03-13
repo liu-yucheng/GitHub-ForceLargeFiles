@@ -31,8 +31,19 @@ def reverse_root_dir(args):
         for f in files:
             f_full_dir = os.path.join(root, f)
 
+            print(f"{args.root_dir = }")
+            print(f"{f_full_dir = }")
+
             if is_partition(f_full_dir):
-                prc = subprocess.run(["7z", "e", f_full_dir, "-o" + root])
+                prc = subprocess.run(
+                    [
+                        "7z",
+                        "e",
+                        f_full_dir,
+                        "-o" + root
+                    ],
+                    shell=True
+                )
                 
                 if args.delete_partitions and prc.returncode == 0:
                     f_noext, _ = os.path.splitext(f)
